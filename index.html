@@ -155,22 +155,31 @@
         </div>
     </div>
 
-    <script>
-        google.script.run.withSuccessHandler(function(data) {
-            document.getElementById('loadingText').style.display = "none";
-            
-            if(data && data.versionName) {
-                document.getElementById('vName').innerText = data.versionName;
-                document.getElementById('changelog').innerText = data.changelog;
-                document.getElementById('downloadBtn').href = data.apkUrl;
+<script>
+        // ใช้ URL ของ GAS ที่เติม ?api=check
+        const gasUrl = "https://script.google.com/macros/s/AKfycbwd9Alb_tNf_VPq3wPW7rgAnrd3jEdgDX5V3v_dQQFPQjM1Pn1mpaP2ncI2V2B8_jcTTA/exec?api=check";
+
+        fetch(gasUrl)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loadingText').style.display = "none";
                 
-                document.getElementById('versionBox').style.display = "block";
-                document.getElementById('downloadBtn').style.display = "block";
-            } else {
-                document.getElementById('loadingText').innerText = "ยังไม่มีไฟล์ให้ดาวน์โหลดในขณะนี้";
-                document.getElementById('loadingText').style.display = "block";
-            }
-        }).getAppInfo();
+                if(data && data.versionName) {
+                    document.getElementById('vName').innerText = data.versionName;
+                    document.getElementById('changelog').innerText = data.changelog;
+                    document.getElementById('downloadBtn').href = data.apkUrl;
+                    
+                    document.getElementById('versionBox').style.display = "block";
+                    document.getElementById('downloadBtn').style.display = "block";
+                } else {
+                    document.getElementById('loadingText').innerText = "ยังไม่มีไฟล์ให้ดาวน์โหลดในขณะนี้";
+                    document.getElementById('loadingText').style.display = "block";
+                }
+            })
+            .catch(error => {
+                document.getElementById('loadingText').innerText = "เกิดข้อผิดพลาดในการดึงข้อมูล";
+                console.error("Error fetching data:", error);
+            });
     </script>
 
 </body>
