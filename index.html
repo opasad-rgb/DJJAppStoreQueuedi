@@ -8,12 +8,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #e65100; /* ส้มเข้ม */
-    --primary-hover: #ff6d00; /* ส้มสว่างตอน Hover */
-    --bg-overlay: rgba(0, 0, 0, 0.65);
+    --primary-color: #e65100;
+    --primary-hover: #ff6d00;
+    --bg-overlay: rgba(0, 0, 0, 0.7);
     --card-bg: rgba(255, 255, 255, 0.98);
     --text-main: #333333;
     --text-secondary: #666666;
+    --soft-accent: #fff3e0;
+    --line-color: #ffe0b2;
 }
 
 body, html {
@@ -25,7 +27,6 @@ body, html {
 }
 
 .background-image {
-    /* แนะนำให้ใช้รูปคุณภาพสูง หรือรูปที่มีความตัดกันดี */
     background-image: url('https://github.com/DJJStudio/DJJAppStoreQueuedi/blob/main/Image.png?raw=true'); 
     background-size: cover;
     background-position: center;
@@ -38,9 +39,8 @@ body, html {
     position: relative;
 }
 
-/* เพิ่ม Gradient ทับเล็กน้อยเพื่อให้พื้นหลังมืดลงแต่ยังเห็นรูป */
 .overlay {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 26, 0.6) 100%);
+    background-color: rgba(0, 0, 0, 0.65);
     position: absolute;
     top: 0;
     left: 0;
@@ -51,14 +51,15 @@ body, html {
 
 .content-box {
     background-color: var(--card-bg);
-    backdrop-filter: blur(10px); /*效 effect กระจกเบลอ */
+    backdrop-filter: blur(10px);
     color: var(--text-main);
-    padding: 40px;
-    border-radius: 20px;
-    max-width: 550px;
-    width: 90%;
+    padding: 24px 18px;
+    border-radius: 24px;
+    max-width: 580px;
+    width: min(94vw, 580px);
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(230, 81, 0, 0.12);
     z-index: 2;
     transform: translateY(0);
     transition: transform 0.3s ease;
@@ -74,9 +75,27 @@ body, html {
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
+@media (min-width: 768px) {
+    .content-box {
+        padding: 38px;
+    }
+
+    .features-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .why-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .cta-button {
+        font-size: 1.15rem;
+    }
+}
+
 h1 {
     color: var(--primary-color);
-    font-size: 3rem; /* ตัวใหญ่ขึ้น */
+    font-size: clamp(2.4rem, 6vw, 3.2rem);
     margin: 0 0 5px 0;
     font-weight: 700;
     letter-spacing: -1px;
@@ -89,14 +108,70 @@ h1 {
     font-weight: 300;
 }
 
+.quality-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.quality-badges span {
+    background: var(--soft-accent);
+    color: #bf360c;
+    border: 1px solid var(--line-color);
+    padding: 8px 13px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
 .features-list {
     text-align: left;
-    margin: 0 auto 25px auto;
+    margin: 0 auto 22px auto;
     padding: 0;
     list-style: none;
-    display: grid; /* ใช้ Grid ในหน้าจอใหญ่ */
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* จัดเป็นคอลัมน์ */
-    gap: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.why-section {
+    text-align: left;
+    margin: 0 0 22px;
+}
+
+.why-section h2 {
+    margin: 0 0 12px;
+    color: var(--primary-color);
+    font-size: 1.35rem;
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.why-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 14px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.why-card strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.98rem;
+    color: #333;
+}
+
+.why-card span {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.5;
 }
 
 .features-list li {
@@ -130,9 +205,15 @@ h1 {
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
     border: 1px solid #ffcc80;
     box-shadow: 0 4px 10px rgba(230, 81, 0, 0.1);
+}
+
+.support-note {
+    margin: 0 0 20px;
+    color: var(--text-secondary);
+    font-size: 0.86rem;
 }
 
 .version-info {
@@ -154,9 +235,9 @@ h1 {
     background: linear-gradient(135deg, var(--primary-color) 0%, #d84315 100%);
     color: white;
     text-decoration: none;
-    padding: 16px;
-    font-size: 1.2rem;
-    border-radius: 50px; /* ปุ่มโค้งมนมากขึ้น */
+    padding: 15px 16px;
+    font-size: 1rem;
+    border-radius: 50px;
     font-weight: 600;
     cursor: pointer;
     border: none;
@@ -216,11 +297,6 @@ h1 {
     animation-delay: 1s;
 }
 
-@keyframes dot-flashing {
-    0% { background-color: #e65100; }
-    50%, 100% { background-color: rgba(230, 81, 0, 0.2); }
-}
-
 </style>
 </head>
 <body>
@@ -228,8 +304,32 @@ h1 {
     <div class="overlay"></div>
     <div class="content-box">
         <h1>Queuedi</h1>
-        <p class="slogan">ระบบจัดการคิวอัจฉริยะและสั่งอาหาร<br>สำหรับร้านสตรีทฟู้ดยุคใหม่</p>
+        <p class="slogan">ระบบจัดการคิวอัตโนมัติและสั่งอาหาร<br>สำหรับร้านสตรีทฟู้ดยุคใหม่</p>
         
+        <div class="quality-badges">
+            <span>⚡ รวดเร็ว</span>
+            <span>🔒 ปลอดภัย</span>
+            <span>📡 Real-time Sync</span>
+        </div>
+
+        <section class="why-section">
+            <h2>ทำไมต้องใช้ Quuedi</h2>
+            <div class="why-grid">
+                <article class="why-card">
+                    <strong>⚡ ลดเวลารอคิว</strong>
+                    <span>เรียกคิวอัตโนมัติและจัดลำดับให้ชัดเจน จึงลดความสับสนในร้านได้ทันที</span>
+                </article>
+                <article class="why-card">
+                    <strong>📲 จัดการทุกที่</strong>
+                    <span>แอปช่วยให้ทีมครัวและพนักงานบริการรับออเดอร์และอัปเดตสถานะแบบเรียลไทม์</span>
+                </article>
+                <article class="why-card">
+                    <strong>📈 เพิ่มประสิทธิภาพร้าน</strong>
+                    <span>ข้อมูลไหลลื่นระหว่างเครื่องหลายเครื่อง ช่วยให้ประสิทธิภาพการทำงานของร้านดีขึ้น</span>
+                </article>
+            </div>
+        </section>
+
         <ul class="features-list">
             <li>เลือกพิมพ์บัตรคิวหรือไม่ก็ได้</li>
             <li>เสียงเรียกคิวอัตโนมัติ</li>
@@ -243,7 +343,9 @@ h1 {
             <span style="font-size: 0.9em; font-weight: 400;"> thereafter 99 บาท / เครื่อง / เดือน</span>
         </div>
 
-        <!-- ส่วนข้อมูลเวอร์ชัน (แสดงเมื่อโหลดสำเร็จ) -->
+        <p class="support-note">รองรับการใช้งานร้านสตรีทฟู้ดแบบทีมเล็กถึงทีมใหญ่ พร้อมระบบมอนิเตอร์จัดการคิวแบบเรียลไทม์</p>
+
+        <!-- ส่วนข้อมูลเวอร์ชั่น (แสดงเมื่อโหลดสำเร็จ) -->
         <div id="versionBox" class="version-info" style="display:none;">
             <p><strong>📦 เวอร์ชั่นล่าสุด:</strong> <span id="vName"></span></p>
             <p><strong>📝 รายละเอียดการอัปเดต:</strong> <br><span id="changelog"></span></p>
@@ -256,43 +358,51 @@ h1 {
         </p>
 
         <!-- ปุ่มดาวน์โหลด -->
-        <a id="downloadBtn" href="#" class="cta-button" style="display:none;">
-            ⬇️ ดาวน์โหลดไฟล์ APK เวอร์ชั่นใหม่สุด
+        <a id="downloadBtn" href="https://example.com/download/Queuedi-v1.0.apk" class="cta-button">
+            ⬇️ ดาวน์โหลด APK เวอร์ชั่นใหม่สุด
         </a>
     </div>
 </div>
 
 <script>
-// ใช้ URL ของ GAS ที่เติม ?api=check
 const gasUrl = "https://script.google.com/macros/s/AKfycbwd9Alb_tNf_VPq3wPW7rgAnrd3jEdgDX5V3v_dQQFPQjM1Pn1mpaP2ncI2V2B8_jcTTA/exec?api=check";
+const fallbackDownloadUrl = "https://example.com/download/Queuedi-v1.0.apk";
+const downloadBtn = document.getElementById('downloadBtn');
+const loadingText = document.getElementById('loadingText');
+const versionBox = document.getElementById('versionBox');
 
 fetch(gasUrl)
 .then(response => response.json())
 .then(data => {
-    // ซ่อน Loading
-    document.getElementById('loadingText').style.display = "none";
-    
-    if(data && data.versionName) {
-        // แสดงข้อมูลเวอร์ชันและปุ่มดาวน์โหลด
+    loadingText.style.display = "none";
+
+    if (data && data.versionName) {
         document.getElementById('vName').innerText = data.versionName;
         document.getElementById('changelog').innerText = data.changelog || "ปรับปรุงระบบให้เสถียรขึ้น";
-        
-        // ปรับลิงก์ปุ่มให้ดูดีขึ้นถ้าไม่มีข้อความ
-        const btnText = data.changelog ? `ดาวน์โหลด (v${data.versionName})` : 'ดาวน์โหลด APK';
-        document.getElementById('downloadBtn').innerHTML = `⬇️ ${btnText}`;
 
-        document.getElementById('versionBox').style.display = "block";
-        document.getElementById('downloadBtn').style.display = "block";
+        const downloadUrl = data.downloadUrl || fallbackDownloadUrl;
+        const btnText = data.ctaText || `ดาวน์โหลด (v${data.versionName})`;
+
+        downloadBtn.href = downloadUrl;
+        downloadBtn.innerHTML = `⬇️ ${btnText}`;
+        downloadBtn.setAttribute('aria-label', `ดาวน์โหลด ${data.versionName}`);
+
+        versionBox.style.display = "block";
+        downloadBtn.style.display = "block";
     } else {
-        document.getElementById('loadingText').innerText = "ยังไม่มีไฟล์ให้ดาวน์โหลดในขณะนี้";
-        document.getElementById('loadingText').style.display = "block";
-        document.getElementById('loadingText').style.color = "#d32f2f"; // สีแดงเมื่อผิด
+        loadingText.innerText = "ยังไม่มีไฟล์ให้ดาวน์โหลดในขณะนี้";
+        loadingText.style.display = "block";
+        loadingText.style.color = "#d32f2f";
+        downloadBtn.href = fallbackDownloadUrl;
+        downloadBtn.innerHTML = "⬇️ ดาวน์โหลด APK";
     }
 })
 .catch(error => {
-    document.getElementById('loadingText').innerText = "ไม่สามารถเชื่อมต่อข้อมูลได้ กรุณาลองใหม่ภายหลัง";
-    document.getElementById('loadingText').style.display = "block";
-    document.getElementById('loadingText').style.color = "#d32f2f";
+    loadingText.innerText = "ไม่สามารถเชื่อมต่อข้อมูลได้ กรุณาลองใหม่ภายหลัง";
+    loadingText.style.display = "block";
+    loadingText.style.color = "#d32f2f";
+    downloadBtn.href = fallbackDownloadUrl;
+    downloadBtn.innerHTML = "⬇️ ดาวน์โหลด APK";
     console.error("Error fetching data:", error);
 });
 </script>
